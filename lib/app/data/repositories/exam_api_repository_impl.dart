@@ -8,10 +8,10 @@ class ExamApiImpl extends ExamApiRepositoryAbstract {
   @override
   List<int> getRandomNumbers(int quantity) {
     if (quantity > 100) {
-      throw ArgumentError('Quantity cannot be greater than 100.');
+      throw ArgumentError('A quantidade não pode ser superior a 100');
     }
 
-    //Greando lista de numeros até o 100
+    //Gerando lista de numeros até o 100
     List<int> numbers = List.generate(100, (index) => index);
 
     //Embaralha a lista
@@ -31,15 +31,3 @@ class ExamApiImpl extends ExamApiRepositoryAbstract {
     return true;
   }
 }
-
-// void main() {
-//   ExamApiRepositorympl api = ExamApiImpl();
-
-//   // Testando a função getRandomNumbers
-//   List<int> randomNumbers = api.getRandomNumbers(5);
-//   print("Números aleatórios: $randomNumbers");
-
-//   // Testando a função checkOrder
-//   bool isOrdered = api.checkOrder(randomNumbers);
-//   print("A lista está em ordem crescente? $isOrdered");
-// }

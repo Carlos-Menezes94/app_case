@@ -2,6 +2,7 @@ import 'package:app_random_numbers/app/core/screen_utility_mixin.dart';
 import 'package:app_random_numbers/app/ui/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -128,52 +129,68 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                       ? const CircularProgressIndicator(
                           backgroundColor: Color(0xFF00434C),
                         )
-                      : Expanded(
-                          child: PrimaryScrollController(
-                            controller: _scrollController,
-                            child: Theme(
-                              data: Theme.of(context).copyWith(
-                                canvasColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: ReorderableListView(
-                                onReorder: (oldIndex, newIndex) {
-                                  if (newIndex > oldIndex) {
-                                    newIndex--;
-                                  }
+                      : _controller
+                              .homeStore.storeListRandomNumbers.value.isEmpty
+                          ? Column(
+                              children: [
+                                Lottie.asset(
+                                    'lib/app/core/assets/ghost_list_emptsy_lottie.json'),
+                                const Text(
+                                  'Lista está vazia, digite um número no campo acima',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            )
+                          : Expanded(
+                              child: PrimaryScrollController(
+                                controller: _scrollController,
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    canvasColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
+                                  child: ReorderableListView(
+                                    onReorder: (oldIndex, newIndex) {
+                                      if (newIndex > oldIndex) {
+                                        newIndex--;
+                                      }
 
-                                  _controller.reorderListRandomNumbers(
-                                      oldIndex, newIndex);
-                                },
-                                onReorderStart: (int index) {
-                                  _controller.homeStore.stateDraggedIndex
-                                      .value = index;
-                                },
-                                onReorderEnd: (int index) {
-                                  _controller
-                                      .homeStore.stateDraggedIndex.value = null;
-                                },
-                                children: List.generate(
-                                  _controller.homeStore.storeListRandomNumbers
-                                      .value.length,
-                                  (index) {
-                                    return Container(
-                                      key: ValueKey(_controller.homeStore
-                                          .storeListRandomNumbers.value[index]),
-                                      child: ListTile(
-                                        enableFeedback: true,
-                                        title: Text(
-                                          'Número - ${_controller.homeStore.storeListRandomNumbers.value[index]}',
-                                          style: const TextStyle(fontSize: 24),
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                      _controller.reorderListRandomNumbers(
+                                          oldIndex, newIndex);
+                                    },
+                                    onReorderStart: (int index) {
+                                      _controller.homeStore.stateDraggedIndex
+                                          .value = index;
+                                    },
+                                    onReorderEnd: (int index) {
+                                      _controller.homeStore.stateDraggedIndex
+                                          .value = null;
+                                    },
+                                    children: List.generate(
+                                      _controller.homeStore
+                                          .storeListRandomNumbers.value.length,
+                                      (index) {
+                                        return Container(
+                                          key: ValueKey(_controller
+                                              .homeStore
+                                              .storeListRandomNumbers
+                                              .value[index]),
+                                          child: ListTile(
+                                            enableFeedback: true,
+                                            title: Text(
+                                              'Número - ${_controller.homeStore.storeListRandomNumbers.value[index]}',
+                                              style:
+                                                  const TextStyle(fontSize: 24),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
                 ],
               ),
             );
