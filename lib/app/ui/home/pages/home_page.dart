@@ -44,18 +44,19 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
   @override
   Widget build(BuildContext context) {
     _controller.homeStore.storeContextHome.value = context;
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        title: const Center(
-          child: Text('Home'),
+
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          title: const Center(
+            child: Text('Home'),
+          ),
         ),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: ValueListenableBuilder(
+        body: ValueListenableBuilder(
           valueListenable: _controller.homeStore.storeState,
           builder: (BuildContext context, state, Widget? child) {
             return Padding(
@@ -131,16 +132,22 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                         )
                       : _controller
                               .homeStore.storeListRandomNumbers.value.isEmpty
-                          ? Column(
-                              children: [
-                                Lottie.asset(
-                                    'lib/app/core/assets/ghost_list_emptsy_lottie.json'),
-                                const Text(
-                                  'Lista está vazia, digite um número no campo acima',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
+                          ? Flexible(
+                              child: Column(
+                                children: [
+                                  Flexible(
+                                    child: Lottie.asset(
+                                      'lib/app/core/assets/ghost_list_empty_lottie.json',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Lista está vazia, digite um número no campo acima',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             )
                           : Expanded(
                               child: PrimaryScrollController(
@@ -196,16 +203,16 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
             );
           },
         ),
+        floatingActionButton: _showScrollToTopButton
+            ? FloatingActionButton(
+                onPressed: _scrollToTop,
+                child: const Icon(
+                  Icons.arrow_upward,
+                  color: Colors.white,
+                ),
+              )
+            : null,
       ),
-      floatingActionButton: _showScrollToTopButton
-          ? FloatingActionButton(
-              onPressed: _scrollToTop,
-              child: const Icon(
-                Icons.arrow_upward,
-                color: Colors.white,
-              ),
-            )
-          : null,
     );
   }
 
