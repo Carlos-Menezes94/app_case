@@ -1,5 +1,6 @@
 import 'package:app_random_numbers/app/core/screen_utility_mixin.dart';
 import 'package:app_random_numbers/app/ui/home/controllers/home_controller.dart';
+import 'package:app_random_numbers/app/ui/home/widgets/buttons_home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
       },
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 80,
+          toolbarHeight: setHeight(80),
           title: const Center(
             child: Text('Home'),
           ),
@@ -60,10 +61,11 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
           valueListenable: _controller.homeStore.storeState,
           builder: (BuildContext context, state, Widget? child) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: setWidth(16), vertical: setHeight(16)),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  SizedBox(height: setHeight(20)),
                   TextFormField(
                     onFieldSubmitted: (value) {
                       _controller.getListNumbersRandom(numberCount: value);
@@ -76,41 +78,19 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                     decoration: InputDecoration(
                       hintText: 'Quantos números deseja?',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(setRadius(30)),
                         borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
+                            BorderSide(color: Colors.blue, width: setWidth(2)),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: setHeight(20)),
                   FittedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF00434C),
-                          ),
-                          onPressed: () {
-                            _controller.getListNumbersRandom(
-                                numberCount:
-                                    _controller.homeStore.storeQaunt.value);
-                          },
-                          child: const Text('Gerar lista'),
-                        ),
-                        const SizedBox(width: 8),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF00434C)),
-                          onPressed: _controller.homeStore
-                                  .storeListRandomNumbers.value.isNotEmpty
-                              ? () {
-                                  _controller.clearListRandomNumbers();
-                                }
-                              : null,
-                          child: const Text('Limpar lista'),
-                        ),
-                        const SizedBox(width: 8),
+                        const ButtonsHomeWidget(),
+                        SizedBox(width: setWidth(8)),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00434C)),
@@ -125,7 +105,7 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: setHeight(20)),
                   _controller.homeStore.storeState.value.isLoading()
                       ? const CircularProgressIndicator(
                           backgroundColor: Color(0xFF00434C),
@@ -141,10 +121,10 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                                       fit: BoxFit.contain,
                                     ),
                                   ),
-                                  const Text(
+                                  Text(
                                     'Lista está vazia, digite um número no campo acima',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: setFontSize(18)),
                                   ),
                                 ],
                               ),
@@ -187,8 +167,8 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                                             enableFeedback: true,
                                             title: Text(
                                               'Número - ${_controller.homeStore.storeListRandomNumbers.value[index]}',
-                                              style:
-                                                  const TextStyle(fontSize: 24),
+                                              style: TextStyle(
+                                                  fontSize: setFontSize(24)),
                                             ),
                                           ),
                                         );
