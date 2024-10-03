@@ -1,5 +1,5 @@
 import 'package:app_random_numbers/app/core/utils/app_state_util.dart';
-import 'package:app_random_numbers/app/data/repositories/exam_api_repository_abstract.dart';
+import 'package:app_random_numbers/app/domain/repositories/exam_api_repository_abstract.dart';
 import 'package:app_random_numbers/app/ui/home/stores/home_store.dart';
 import 'package:flutter/material.dart';
 

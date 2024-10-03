@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app_random_numbers/app/data/repositories/exam_api_repository_abstract.dart';
+import 'package:app_random_numbers/app/domain/repositories/exam_api_repository_abstract.dart';
 
 class ExamApiImpl extends ExamApiRepositoryAbstract {
   final Random _random = Random();
