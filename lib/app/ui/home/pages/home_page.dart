@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                 children: [
                   SizedBox(height: setHeight(20)),
                   TextFormField(
+                    maxLength: 6,
                     onFieldSubmitted: (value) {
                       _controller.getListNumbersRandom(numberCount: value);
                     },
@@ -131,52 +132,40 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                                     canvasColor: Colors.transparent,
                                     shadowColor: Colors.transparent,
                                   ),
-                                  child: ReorderableListView(
+                                  child: ReorderableListView.builder(
+                                    itemCount: _controller.homeStore
+                                        .storeListRandomNumbers.value.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        key: ValueKey(index),
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: const Color(0xFF00434C),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            'Número - ${_controller.homeStore.storeListRandomNumbers.value[index]}',
+                                            style: TextStyle(
+                                                fontSize: setFontSize(24)),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     onReorder: (oldIndex, newIndex) {
                                       if (newIndex > oldIndex) {
                                         newIndex--;
                                       }
-
                                       _controller.reorderListRandomNumbers(
                                           oldIndex, newIndex);
                                     },
-                                    onReorderStart: (int index) {
-                                      _controller.homeStore.stateDraggedIndex
-                                          .value = index;
-                                    },
-                                    onReorderEnd: (int index) {
-                                      _controller.homeStore.stateDraggedIndex
-                                          .value = null;
-                                    },
-                                    children: List.generate(
-                                      _controller.homeStore
-                                          .storeListRandomNumbers.value.length,
-                                      (index) {
-                                        return Container(
-                                          key: ValueKey(_controller
-                                              .homeStore
-                                              .storeListRandomNumbers
-                                              .value[index]),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xFF00434C),
-                                                  width: 2),
-                                              borderRadius:
-                                                  BorderRadius.circular(12)),
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 8),
-                                          child: ListTile(
-                                            enableFeedback: true,
-                                            title: Text(
-                                              'Número - ${_controller.homeStore.storeListRandomNumbers.value[index]}',
-                                              style: TextStyle(
-                                                  fontSize: setFontSize(24)),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 ),
                               ),

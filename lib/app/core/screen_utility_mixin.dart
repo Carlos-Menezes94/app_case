@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//Usado a lib flutter_screenutil pois ela calcula o tamanho de cada tela através de pixels de qualquer dispositivo
+
+//Mixin com propriedades para o layout responsivo
 mixin ScreenUtilityMixin {
   double setWidth(num width) {
     return ScreenUtil().setWidth(width);

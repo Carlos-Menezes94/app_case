@@ -18,6 +18,9 @@ class _ButtonsHomeWidgetState extends State<ButtonsHomeWidget>
   Widget build(BuildContext context) {
     final spaceBetweenButtons = SizedBox(width: setWidth(8));
 
+    final paddingButton =
+        EdgeInsets.symmetric(vertical: setHeight(14), horizontal: setWidth(10));
+
     return ValueListenableBuilder(
         valueListenable: _controller.homeStore.storeListRandomNumbers,
         builder: (BuildContext context, state, Widget? child) {
@@ -27,38 +30,55 @@ class _ButtonsHomeWidgetState extends State<ButtonsHomeWidget>
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00434C),
-                  ),
+                      backgroundColor: const Color(0xFF00434C),
+                      padding: paddingButton),
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
+
                     _controller.getListNumbersRandom(
                         numberCount: _controller
                             .homeStore.storeAmountRandomNumbers.value);
                   },
-                  child: const Text('Gerar lista'),
+                  child: Text(
+                    'Gerar lista',
+                    style: TextStyle(fontSize: setFontSize(20)),
+                  ),
                 ),
                 spaceBetweenButtons,
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00434C)),
+                      backgroundColor: const Color(0xFF00434C),
+                      padding: paddingButton),
                   onPressed: _controller
                           .homeStore.storeListRandomNumbers.value.isNotEmpty
                       ? () {
-                          _controller.clearListRandomNumbers();
-                        }
-                      : null,
-                  child: const Text('Limpar lista'),
-                ),
-                spaceBetweenButtons,
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00434C)),
-                  onPressed: _controller
-                          .homeStore.storeListRandomNumbers.value.isNotEmpty
-                      ? () {
+                          FocusScope.of(context).unfocus();
+
                           _controller.verifyAscendingOrderList();
                         }
                       : null,
-                  child: const Text('Ordem crescente'),
+                  child: Text(
+                    'Ordem crescente',
+                    style: TextStyle(fontSize: setFontSize(20)),
+                  ),
+                ),
+                spaceBetweenButtons,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: paddingButton,
+                      backgroundColor: const Color(0xFF00434C)),
+                  onPressed: _controller
+                          .homeStore.storeListRandomNumbers.value.isNotEmpty
+                      ? () {
+                          FocusScope.of(context).unfocus();
+
+                          _controller.clearListRandomNumbers();
+                        }
+                      : null,
+                  child: Text(
+                    'Limpar lista',
+                    style: TextStyle(fontSize: setFontSize(20)),
+                  ),
                 ),
               ],
             ),

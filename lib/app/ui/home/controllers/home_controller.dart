@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 abstract class Controller extends Object {}
 
 class HomeController extends Controller {
-  final ExamApiRepositoryAbstract examApiRepository;
+  final ExamApiRepositoryAbstract? examApiRepository;
   final HomeStore homeStore;
 
   HomeController({required this.homeStore, required this.examApiRepository});
@@ -18,20 +18,15 @@ class HomeController extends Controller {
         numberCount.isEmpty ? 0 : int.parse(numberCount);
     _delayRequest();
 
-    if (amountRandomNumbers != 0 && amountRandomNumbers <= 100) {
+    if (amountRandomNumbers != 0) {
       await _delayRequest();
 
-      final response = examApiRepository.getRandomNumbers(amountRandomNumbers);
+      final response = examApiRepository!.getRandomNumbers(amountRandomNumbers);
       homeStore.storeListRandomNumbers.value = response;
     } else {
       ScaffoldMessenger.of(homeStore.storeContextHome.value!)
-          .showSnackBar(SnackBar(
-        content: Center(
-            child: Text(
-          amountRandomNumbers > 100
-              ? "Digite um número de 1 a 100"
-              : "Digite um número no campo acima",
-        )),
+          .showSnackBar(const SnackBar(
+        content: Center(child: Text("Digite um número acima de 0")),
       ));
     }
     homeStore.storeState.value = AppStateUtil.success();
@@ -39,7 +34,7 @@ class HomeController extends Controller {
 
   verifyAscendingOrderList() {
     final isNotAscendingOrder =
-        examApiRepository.checkOrder(homeStore.storeListRandomNumbers.value);
+        examApiRepository!.checkOrder(homeStore.storeListRandomNumbers.value);
 
     if (isNotAscendingOrder) {
       _sortRandomNumbers();
@@ -47,7 +42,12 @@ class HomeController extends Controller {
           .showSnackBar(const SnackBar(
         content: Center(child: Text('Lista ordenada com sucesso!')),
       ));
+      return;
     }
+    ScaffoldMessenger.of(homeStore.storeContextHome.value!)
+        .showSnackBar(const SnackBar(
+      content: Center(child: Text('Lista está em ordem crescente.')),
+    ));
   }
 
   void _sortRandomNumbers() {

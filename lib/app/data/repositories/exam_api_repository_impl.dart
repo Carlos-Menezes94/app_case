@@ -7,12 +7,7 @@ class ExamApiImpl extends ExamApiRepositoryAbstract {
 
   @override
   List<int> getRandomNumbers(int quantity) {
-    if (quantity > 100) {
-      throw ArgumentError('A quantidade não pode ser superior a 100');
-    }
-
-    //Gerando lista de numeros até o 100
-    List<int> numbers = List.generate(100, (index) => index);
+    List<int> numbers = List.generate(99999, (index) => index);
 
     //Embaralha a lista
     numbers.shuffle(_random);

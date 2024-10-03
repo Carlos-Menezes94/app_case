@@ -5,20 +5,18 @@ void main() {
   group('ExamApi Tests', () {
     late ExamApiImpl examApi;
 
-    // Inicializa a instância antes de cada teste
     setUp(() {
       examApi = ExamApiImpl();
     });
 
-    test('getRandomNumbers should return the correct number of random numbers',
-        () {
+    test('Should return the correct number of random numbers', () {
       const int quantity = 5;
       final List<int> randomNumbers = examApi.getRandomNumbers(quantity);
-
+      //Verificar se está retornando quantidade de números certo
       expect(randomNumbers.length, quantity);
     });
 
-    test('getRandomNumbers should not return null values', () {
+    test('Should not return null values', () {
       final List<int> randomNumbers = examApi.getRandomNumbers(10);
 
       for (int number in randomNumbers) {
@@ -26,14 +24,12 @@ void main() {
       }
     });
 
-    test('getRandomNumbers should return numbers within the specified range',
-        () {
-      final List<int> randomNumbers = examApi.getRandomNumbers(100);
+    test('Should return true when checking an unordered list', () {
+      final listRandomNumbers = [100, 1, 88, 3, 8, 29];
 
-      // Verifica se todos os números estão entre 0 e 99
-      for (int number in randomNumbers) {
-        expect(number, inInclusiveRange(0, 99));
-      }
+      final randomNumbers = examApi.checkOrder(listRandomNumbers);
+
+      expect(randomNumbers, isTrue);
     });
   });
 }
