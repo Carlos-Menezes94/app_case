@@ -4,7 +4,7 @@ import 'package:app_random_numbers/app/ui/home/controllers/home_controller.dart'
 import 'package:app_random_numbers/app/ui/home/stores/home_store.dart';
 import 'package:get_it/get_it.dart';
 
-class DependecyInjector {
+class DependencyInjector {
   static void start() {
     GetIt getIt = GetIt.instance;
 
@@ -12,7 +12,7 @@ class DependecyInjector {
 
     getIt.registerSingleton(HomeStore());
 
-    getIt.registerFactory(() => HomeController(
+    getIt.registerSingleton(() => HomeController(
           homeStore: GetIt.I.get<HomeStore>(),
           examApiRepository: GetIt.I.get<ExamApiRepositoryAbstract>(),
         ));

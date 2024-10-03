@@ -1,11 +1,11 @@
-import 'package:app_random_numbers/app/core/dependency_injector/dependecy_injector.dart';
+import 'package:app_random_numbers/app/core/dependency_injector/dependency_injector.dart';
 import 'package:app_random_numbers/app/core/themes/theme_config.dart';
 import 'package:app_random_numbers/app/ui/home/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  DependecyInjector.start();
+  DependencyInjector.start();
   runApp(const MyApp());
 }
 
