@@ -31,7 +31,8 @@ class _ButtonsHomeWidgetState extends State<ButtonsHomeWidget>
                   ),
                   onPressed: () {
                     _controller.getListNumbersRandom(
-                        numberCount: _controller.homeStore.storeQaunt.value);
+                        numberCount: _controller
+                            .homeStore.storeAmountRandomNumbers.value);
                   },
                   child: const Text('Gerar lista'),
                 ),
@@ -46,6 +47,18 @@ class _ButtonsHomeWidgetState extends State<ButtonsHomeWidget>
                         }
                       : null,
                   child: const Text('Limpar lista'),
+                ),
+                spaceBetweenButtons,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00434C)),
+                  onPressed: _controller
+                          .homeStore.storeListRandomNumbers.value.isNotEmpty
+                      ? () {
+                          _controller.verifyAscendingOrderList();
+                        }
+                      : null,
+                  child: const Text('Ordem crescente'),
                 ),
               ],
             ),

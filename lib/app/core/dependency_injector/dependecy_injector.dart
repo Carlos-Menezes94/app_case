@@ -10,7 +10,7 @@ class DependecyInjector {
 
     getIt.registerSingleton<ExamApiRepositoryAbstract>(ExamApiImpl());
 
-    getIt.registerSingleton(HomeStore(null));
+    getIt.registerSingleton(HomeStore());
 
     getIt.registerFactory(() => HomeController(
           homeStore: GetIt.I.get<HomeStore>(),

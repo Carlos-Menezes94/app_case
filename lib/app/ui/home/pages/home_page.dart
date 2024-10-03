@@ -61,8 +61,7 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
           valueListenable: _controller.homeStore.storeState,
           builder: (BuildContext context, state, Widget? child) {
             return Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: setWidth(16), vertical: setHeight(16)),
+              padding: EdgeInsets.symmetric(horizontal: setWidth(16)),
               child: Column(
                 children: [
                   SizedBox(height: setHeight(20)),
@@ -73,7 +72,8 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      _controller.homeStore.storeQaunt.value = value;
+                      _controller.homeStore.storeAmountRandomNumbers.value =
+                          value;
                     },
                     decoration: InputDecoration(
                       hintText: 'Quantos números deseja?',
@@ -91,20 +91,14 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                       children: [
                         const ButtonsHomeWidget(),
                         SizedBox(width: setWidth(8)),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF00434C)),
-                          onPressed: _controller.homeStore
-                                  .storeListRandomNumbers.value.isNotEmpty
-                              ? () {
-                                  _controller.sortRandomNumbers();
-                                }
-                              : null,
-                          child: const Text('Ordem crescente'),
-                        ),
                       ],
                     ),
                   ),
+                  SizedBox(height: setHeight(20)),
+                  if (_controller
+                      .homeStore.storeListRandomNumbers.value.isNotEmpty)
+                    Text(
+                        'Quantidade de itens na lista: ${_controller.homeStore.storeAmountRandomNumbers.value}'),
                   SizedBox(height: setHeight(20)),
                   _controller.homeStore.storeState.value.isLoading()
                       ? const CircularProgressIndicator(
@@ -163,6 +157,15 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                                               .homeStore
                                               .storeListRandomNumbers
                                               .value[index]),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color:
+                                                      const Color(0xFF00434C),
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(12)),
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 8),
                                           child: ListTile(
                                             enableFeedback: true,
                                             title: Text(

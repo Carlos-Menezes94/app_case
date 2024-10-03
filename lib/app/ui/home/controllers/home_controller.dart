@@ -37,12 +37,20 @@ class HomeController extends Controller {
     homeStore.storeState.value = AppStateUtil.success();
   }
 
-  verifyListOrderCrescente() {
-    final response =
+  verifyAscendingOrderList() {
+    final isNotAscendingOrder =
         examApiRepository.checkOrder(homeStore.storeListRandomNumbers.value);
+
+    if (isNotAscendingOrder) {
+      _sortRandomNumbers();
+      ScaffoldMessenger.of(homeStore.storeContextHome.value!)
+          .showSnackBar(const SnackBar(
+        content: Center(child: Text('Lista ordenada com sucesso!')),
+      ));
+    }
   }
 
-  void sortRandomNumbers() {
+  void _sortRandomNumbers() {
     homeStore.storeState.value = AppStateUtil.loading();
 
     List<int> randomNumbers = homeStore.storeListRandomNumbers.value;
@@ -62,6 +70,7 @@ class HomeController extends Controller {
     homeStore.storeState.value = AppStateUtil.loading();
     await _delayRequest();
     homeStore.storeListRandomNumbers.value = [];
+
     homeStore.storeState.value = AppStateUtil.success();
   }
 
