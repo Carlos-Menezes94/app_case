@@ -28,7 +28,7 @@ ValueNotifier: Utilizado para gerenciamento de estado, facilitando a atualizaç�
 
 Testes
 
-Foram realizados testes unitários para garantir o funcionamento correto das principais funcionalidades, focando nas seguintes áreas:
+Foram realizados testes unitários e de widgets para garantir o funcionamento correto das principais funcionalidades, focando nas seguintes áreas:
 
 Repositories: Testes unitários cobrindo as implementações dos repositórios na camada de dados.
 Page: Testes de widgets para validar a correta renderização dos estados da lista de números aleatorios.
