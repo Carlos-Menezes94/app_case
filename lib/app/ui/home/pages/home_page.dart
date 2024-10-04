@@ -72,7 +72,11 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                         if (value == null || value.isEmpty) {
                           return 'Por favor, insira um valor';
                         }
-                        return null; // O campo é válido
+
+                        if (value == '0') {
+                          return 'Digite um número acima de 0';
+                        }
+                        return null;
                       },
                       maxLength: 6,
                       controller:
@@ -83,8 +87,10 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        _controller.homeStore.storeAmountRandomNumbers.value =
-                            value;
+                        if (int.parse(value) > 0) {
+                          _controller.homeStore.storeAmountRandomNumbers.value =
+                              value;
+                        }
                       },
                       decoration: InputDecoration(
                         hintText: 'Quantos números deseja?',
@@ -188,7 +194,9 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
         ),
         floatingActionButton: _showScrollToTopButton
             ? FloatingActionButton(
-                onPressed: _scrollToTop,
+                onPressed: () {
+                  _scrollToTop();
+                },
                 child: const Icon(
                   Icons.arrow_upward,
                   color: Colors.white,

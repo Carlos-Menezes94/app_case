@@ -36,6 +36,7 @@ class HomeController extends Controller {
 
     if (isNotAscendingOrder) {
       _sortRandomNumbers();
+
       ScaffoldMessenger.of(homeStore.storeContextHome.value!)
           .showSnackBar(const SnackBar(
         content: Center(child: Text('Lista ordenada com sucesso!')),
@@ -44,7 +45,7 @@ class HomeController extends Controller {
     }
     ScaffoldMessenger.of(homeStore.storeContextHome.value!)
         .showSnackBar(const SnackBar(
-      content: Center(child: Text('Lista está em ordem crescente.')),
+      content: Center(child: Text('Lista já está em ordem crescente.')),
     ));
   }
 
@@ -68,6 +69,7 @@ class HomeController extends Controller {
     homeStore.storeState.value = AppStateUtil.loading();
     await _delayRequest();
     homeStore.storeListRandomNumbers.value = [];
+    homeStore.stateControllerEditing.value.clear();
 
     homeStore.storeState.value = AppStateUtil.success();
   }
@@ -80,7 +82,6 @@ class HomeController extends Controller {
   void reorderListRandomNumbers(int oldIndex, int newIndex) {
     final number = homeStore.storeListRandomNumbers.value.removeAt(oldIndex);
     homeStore.storeListRandomNumbers.value.insert(newIndex, number);
-
     homeStore.storeState.value = AppStateUtil.success();
   }
 }
