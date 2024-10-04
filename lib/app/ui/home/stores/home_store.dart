@@ -7,4 +7,9 @@ class HomeStore {
   ValueNotifier<BuildContext?> storeContextHome = ValueNotifier(null);
   ValueNotifier<AppStateUtil> storeState = ValueNotifier(AppStateUtil.idle());
   ValueNotifier<int?> stateDraggedIndex = ValueNotifier(null);
+
+  ValueNotifier<TextEditingController> stateControllerEditing =
+      ValueNotifier(TextEditingController(text: ''));
+  ValueNotifier<GlobalKey<FormState>> stateFormKey =
+      ValueNotifier(GlobalKey<FormState>());
 }

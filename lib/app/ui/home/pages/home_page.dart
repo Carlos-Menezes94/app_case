@@ -65,23 +65,34 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
               child: Column(
                 children: [
                   SizedBox(height: setHeight(20)),
-                  TextFormField(
-                    maxLength: 6,
-                    onFieldSubmitted: (value) {
-                      _controller.getListNumbersRandom(numberCount: value);
-                    },
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      _controller.homeStore.storeAmountRandomNumbers.value =
-                          value;
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Quantos números deseja?',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(setRadius(30)),
-                        borderSide:
-                            BorderSide(color: Colors.blue, width: setWidth(2)),
+                  Form(
+                    key: _controller.homeStore.stateFormKey.value,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, insira um valor';
+                        }
+                        return null; // O campo é válido
+                      },
+                      maxLength: 6,
+                      controller:
+                          _controller.homeStore.stateControllerEditing.value,
+                      onFieldSubmitted: (value) {
+                        _controller.getListNumbersRandom(numberCount: value);
+                      },
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        _controller.homeStore.storeAmountRandomNumbers.value =
+                            value;
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Quantos números deseja?',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(setRadius(30)),
+                          borderSide: BorderSide(
+                              color: Colors.blue, width: setWidth(2)),
+                        ),
                       ),
                     ),
                   ),
@@ -139,12 +150,12 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
                                         (BuildContext context, int index) {
                                       return Container(
                                         key: ValueKey(index),
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 8),
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: setHeight(8)),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             color: const Color(0xFF00434C),
-                                            width: 2,
+                                            width: setWidth(2),
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(12),

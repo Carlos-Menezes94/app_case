@@ -12,24 +12,22 @@ class HomeController extends Controller {
   HomeController({required this.homeStore, required this.examApiRepository});
 
   getListNumbersRandom({required String numberCount}) async {
-    homeStore.storeState.value = AppStateUtil.loading();
+    if (homeStore.stateFormKey.value.currentState?.validate() ?? false) {
+      homeStore.storeState.value = AppStateUtil.loading();
 
-    final amountRandomNumbers =
-        numberCount.isEmpty ? 0 : int.parse(numberCount);
-    _delayRequest();
+      final amountRandomNumbers =
+          numberCount.isEmpty ? 0 : int.parse(numberCount);
+      _delayRequest();
 
-    if (amountRandomNumbers != 0) {
-      await _delayRequest();
-
-      final response = examApiRepository!.getRandomNumbers(amountRandomNumbers);
-      homeStore.storeListRandomNumbers.value = response;
-    } else {
-      ScaffoldMessenger.of(homeStore.storeContextHome.value!)
-          .showSnackBar(const SnackBar(
-        content: Center(child: Text("Digite um número acima de 0")),
-      ));
+      if (amountRandomNumbers != 0) {
+        await _delayRequest();
+        homeStore.stateControllerEditing.value.clear();
+        final response =
+            examApiRepository!.getRandomNumbers(amountRandomNumbers);
+        homeStore.storeListRandomNumbers.value = response;
+      }
+      homeStore.storeState.value = AppStateUtil.success();
     }
-    homeStore.storeState.value = AppStateUtil.success();
   }
 
   verifyAscendingOrderList() {

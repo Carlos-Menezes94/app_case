@@ -12,7 +12,7 @@ class DependencyInjector {
 
     getIt.registerSingleton(HomeStore());
 
-    getIt.registerSingleton(() => HomeController(
+    getIt.registerFactory(() => HomeController(
           homeStore: GetIt.I.get<HomeStore>(),
           examApiRepository: GetIt.I.get<ExamApiRepositoryAbstract>(),
         ));
