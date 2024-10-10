@@ -1,87 +1,40 @@
-import 'package:app_random_numbers/app/core/utils/app_state_util.dart';
-import 'package:app_random_numbers/app/domain/repositories/exam_api_repository_abstract.dart';
-import 'package:app_random_numbers/app/ui/home/stores/home_store.dart';
+import 'package:app_random_numbers/app/core/controller/controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-abstract class Controller extends Object {}
+import 'package:app_random_numbers/app/core/secure/secure_storage.dart';
+import 'package:app_random_numbers/app/core/widgets/app_message_custom_widget.dart';
+import 'package:app_random_numbers/app/ui/home/stores/home_store.dart';
+import 'package:app_random_numbers/app/ui/login/pages/login_page.dart';
 
 class HomeController extends Controller {
-  final ExamApiRepositoryAbstract? examApiRepository;
   final HomeStore homeStore;
+  final SecureStorage secureStorage;
 
-  HomeController({required this.homeStore, required this.examApiRepository});
+  HomeController({
+    required this.homeStore,
+    required this.secureStorage,
+  });
 
-  getListNumbersRandom({required String numberCount}) async {
-    if (homeStore.stateFormKey.value.currentState?.validate() ?? false) {
-      homeStore.storeState.value = AppStateUtil.loading();
+  void logout() async {
+    try {
+      await secureStorage.deleteEncryptedData('boxToken');
 
-      final amountRandomNumbers =
-          numberCount.isEmpty ? 0 : int.parse(numberCount);
-      _delayRequest();
-
-      if (amountRandomNumbers != 0) {
-        await _delayRequest();
-        homeStore.stateControllerEditing.value.clear();
-        final response =
-            examApiRepository!.getRandomNumbers(amountRandomNumbers);
-        homeStore.storeListRandomNumbers.value = response;
-      }
-      homeStore.storeState.value = AppStateUtil.success();
+      Navigator.of(homeStore.storeContextHome.value!).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        ),
+      );
+    } catch (e) {
+      AppMessageCustomWidget().error(
+        homeStore.storeContextHome.value!,
+        'Falha ao tentar fazer o logout de sua conta',
+      );
     }
   }
 
-  verifyAscendingOrderList() {
-    final isNotAscendingOrder =
-        examApiRepository!.checkOrder(homeStore.storeListRandomNumbers.value);
-
-    if (isNotAscendingOrder) {
-      _sortRandomNumbers();
-
-      ScaffoldMessenger.of(homeStore.storeContextHome.value!)
-          .showSnackBar(const SnackBar(
-        content: Center(child: Text('Lista ordenada com sucesso!')),
-      ));
-      return;
-    }
-    ScaffoldMessenger.of(homeStore.storeContextHome.value!)
-        .showSnackBar(const SnackBar(
-      content: Center(child: Text('Lista já está em ordem crescente.')),
-    ));
-  }
-
-  void _sortRandomNumbers() {
-    homeStore.storeState.value = AppStateUtil.loading();
-
-    List<int> randomNumbers = homeStore.storeListRandomNumbers.value;
-
-    //Verifica se a lista não está vazia antes de ordenar
-    if (randomNumbers.isNotEmpty) {
-      randomNumbers.sort();
-
-      //Armazena a lista ordenada de volta na store
-      homeStore.storeListRandomNumbers.value = randomNumbers;
-    }
-    homeStore.storeState.value = AppStateUtil.success();
-  }
-
-  //Limpar a lista de números aleatórios
-  clearListRandomNumbers() async {
-    homeStore.storeState.value = AppStateUtil.loading();
-    await _delayRequest();
-    homeStore.storeListRandomNumbers.value = [];
-    homeStore.stateControllerEditing.value.clear();
-
-    homeStore.storeState.value = AppStateUtil.success();
-  }
-
-  //Função que simula o delay para o loading
-  Future<void> _delayRequest() async {
-    await Future.delayed(const Duration(seconds: 1));
-  }
-
-  void reorderListRandomNumbers(int oldIndex, int newIndex) {
-    final number = homeStore.storeListRandomNumbers.value.removeAt(oldIndex);
-    homeStore.storeListRandomNumbers.value.insert(newIndex, number);
-    homeStore.storeState.value = AppStateUtil.success();
+  isDebugTest() {
+    final response = WidgetsBinding.instance is TestWidgetsFlutterBinding;
+    return response;
   }
 }

@@ -5,11 +5,12 @@ class HomeStore {
   ValueNotifier<List<int>> storeListRandomNumbers = ValueNotifier([]);
   ValueNotifier<String> storeAmountRandomNumbers = ValueNotifier('');
   ValueNotifier<BuildContext?> storeContextHome = ValueNotifier(null);
-  ValueNotifier<AppStateUtil> storeState = ValueNotifier(AppStateUtil.idle());
-  ValueNotifier<int?> stateDraggedIndex = ValueNotifier(null);
+  ValueNotifier<AppStateUtil> storeState =
+      ValueNotifier(AppStateUtil.initial());
+  ValueNotifier<int?> storeDraggedIndex = ValueNotifier(null);
 
-  ValueNotifier<TextEditingController> stateControllerEditing =
+  ValueNotifier<TextEditingController> storeControllerEditing =
       ValueNotifier(TextEditingController(text: ''));
-  ValueNotifier<GlobalKey<FormState>> stateFormKey =
+  ValueNotifier<GlobalKey<FormState>> storeFormKey =
       ValueNotifier(GlobalKey<FormState>());
 }

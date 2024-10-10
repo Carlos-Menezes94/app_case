@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "app_random_numbers",
+            "name": "app_case",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "app_random_numbers (profile mode)",
+            "name": "app_case (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "app_random_numbers (release mode)",
+            "name": "app_case (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

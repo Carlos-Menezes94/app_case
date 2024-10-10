@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ThemeConfig {
   static final theme = ThemeData(
-    fontFamily: 'Montserrat',
-    appBarTheme: const AppBarTheme(
-      shape: RoundedRectangleBorder(
+    bottomSheetTheme:
+        const BottomSheetThemeData(backgroundColor: Colors.transparent),
+    fontFamily: GoogleFonts.montserrat().fontFamily,
+    appBarTheme: AppBarTheme(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(20),
         ),
       ),
       elevation: 10,
-      backgroundColor: Color(0xFF00434C),
+      backgroundColor: Colors.yellow.shade700,
       toolbarHeight: 40,
       centerTitle: true,
-      titleTextStyle: TextStyle(
+      titleTextStyle: GoogleFonts.roboto(
         fontSize: 26,
-        color: Colors.white,
+        color: Colors.black,
         fontWeight: FontWeight.w700,
       ),
     ),
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xFF00434C),
-      primary: Colors.white,
+      primary: Colors.black,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -33,6 +36,7 @@ class ThemeConfig {
         ),
       ),
     ),
+    textTheme: const TextTheme(),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.grey[150],
