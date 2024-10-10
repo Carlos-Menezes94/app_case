@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> with ScreenUtilityMixin {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            'Seja bem vindo(a)',
+                            'Seja bem-vindo(a)',
                             key: const Key('title_home'),
                             textAlign: TextAlign.center,
                             style: GoogleFonts.montserrat(
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> with ScreenUtilityMixin {
                                     ),
                                     children: const <TextSpan>[
                                       TextSpan(
-                                        text: 'Cadastrar-se!',
+                                        text: 'Cadastre-se!',
                                         style: TextStyle(
                                           decoration: TextDecoration.underline,
                                           fontWeight: FontWeight.w800,

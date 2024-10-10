@@ -23,12 +23,12 @@ class _CustomInputLoginWidgetState extends State<CustomInputLoginWidget>
                 key: const Key('text_email'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira seu e-mail';
+                    return 'Por favor, digite seu e-mail';
                   }
                   if (!RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(value)) {
-                    return 'Por favor, insíra um e-mail valido';
+                    return 'Por favor, digite um e-mail válido';
                   }
 
                   return null;
@@ -45,10 +45,10 @@ class _CustomInputLoginWidgetState extends State<CustomInputLoginWidget>
                 obscureText: widget.controller.store.storeShowPassword.value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira sua senha';
+                    return 'Por favor, digite sua senha';
                   }
                   if (value.length < 6) {
-                    return 'A senha contém no minímo 6 digítos';
+                    return 'A senha contém no mínimo 6 dígitos';
                   }
 
                   return null;

@@ -1,6 +1,5 @@
 import 'package:app_random_numbers/app/core/secure/secure_storage.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class RestClient {
   final Dio _dio;

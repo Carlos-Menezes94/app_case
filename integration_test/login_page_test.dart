@@ -34,7 +34,7 @@ void main() {
       await tester.tap(find.byKey(const Key('button_logout_confirm')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Seja bem vindo(a)'), findsOneWidget);
+      expect(find.text('Seja bem-vindo(a)'), findsOneWidget);
     });
     testWidgets(
         'Should display error messages when email and password fields are empty or invalid',
@@ -45,8 +45,8 @@ void main() {
       await tester.tap(find.byKey(const Key('button_enter_login')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Por favor, insira seu e-mail'), findsOneWidget);
-      expect(find.text('Por favor, insira sua senha'), findsOneWidget);
+      expect(find.text('Por favor, digite seu e-mail'), findsOneWidget);
+      expect(find.text('Por favor, digite sua senha'), findsOneWidget);
 
       await tester.enterText(find.byKey(const Key('text_email')), 'teste@@');
       await tester.enterText(find.byKey(const Key('text_password')), '111');
@@ -54,8 +54,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Por favor, insíra um e-mail valido'), findsOneWidget);
-      expect(find.text('A senha contém no minímo 6 digítos'), findsOneWidget);
+      expect(find.text('Por favor, digite um e-mail válido'), findsOneWidget);
+      expect(find.text('A senha contém no mínimo 6 dígitos'), findsOneWidget);
     });
   });
 
