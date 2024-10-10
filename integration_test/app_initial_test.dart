@@ -7,7 +7,7 @@ import 'package:app_random_numbers/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('AppInitial navigation E2E Tests  ---  ', () {
+  group('AppInitial navigation E2E Tests  --->  ', () {
     late SecureStorage secureStorage;
 
     setUp(() async {

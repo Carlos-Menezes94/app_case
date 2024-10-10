@@ -11,7 +11,7 @@ void main() {
   tearDown(() {
     GetIt.I.reset();
   });
-  group('LoginPage E2E Tests  ---  ', () {
+  group('LoginPage E2E Tests  --->  ', () {
     testWidgets('Should login successfully and navigate to HomePage',
         (tester) async {
       app.main();

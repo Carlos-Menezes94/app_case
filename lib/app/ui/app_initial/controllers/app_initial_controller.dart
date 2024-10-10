@@ -17,7 +17,7 @@ class AppInitialController extends Controller {
 
     final response = await secureStorage.getEncryptedData('boxToken');
     //Verifica se existe token, se sim o usuário está logado e será levado para HomePage
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
     if (response != null) {
       Navigator.of(store.storeContextAppInitial.value!).pushReplacement(
         MaterialPageRoute(

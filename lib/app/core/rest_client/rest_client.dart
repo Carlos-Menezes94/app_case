@@ -24,61 +24,42 @@ class RestClient {
     String path, {
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
     void Function(int, int)? onReceiveProgress,
   }) async {
-    try {
-      return await _dio.get(
-        path,
+    return _dio.get(path,
+        cancelToken: cancelToken,
         options: options,
         queryParameters: queryParameters,
-        onReceiveProgress: onReceiveProgress,
-      );
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
+        onReceiveProgress: onReceiveProgress);
   }
 
-  Future<Response> post(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    void Function(int, int)? onSendProgress,
-    void Function(int, int)? onReceiveProgress,
-  }) async {
-    try {
-      return await _dio.post(
-        path,
+  Future<Response> post(String path,
+      {dynamic data,
+      Map<String, dynamic>? queryParameters,
+      Options? options,
+      CancelToken? cancelToken,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress}) async {
+    return _dio.post(path,
         data: data,
         options: options,
+        cancelToken: cancelToken,
         queryParameters: queryParameters,
         onReceiveProgress: onReceiveProgress,
-        onSendProgress: onSendProgress,
-      );
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
+        onSendProgress: onSendProgress);
   }
 
-  Future<Response> delete(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-  }) async {
-    try {
-      return await _dio.delete(
-        path,
+  Future<Response> delete(String path,
+      {dynamic data,
+      Map<String, dynamic>? queryParameters,
+      Options? options,
+      CancelToken? cancelToken}) async {
+    return _dio.delete(path,
         data: data,
+        cancelToken: cancelToken,
         options: options,
-        queryParameters: queryParameters,
-      );
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
+        queryParameters: queryParameters);
   }
 
   Future<Response> patch({
@@ -86,22 +67,17 @@ class RestClient {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress,
   }) async {
-    try {
-      return await _dio.patch(
-        path,
+    return _dio.patch(path,
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
         onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
+        onReceiveProgress: onReceiveProgress);
   }
 
   Future<Response> put(
@@ -109,30 +85,16 @@ class RestClient {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress,
   }) async {
-    try {
-      return await _dio.put(
-        path,
+    return _dio.put(path,
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
         onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
-  }
-
-  void _handleError(DioException e) {
-    if (e.response != null) {
-      debugPrint(
-          'RestClient Erro: ${e.response?.statusCode} - ${e.response?.data}');
-    } else {
-      debugPrint('RestClient Erro: ${e.message}');
-    }
+        onReceiveProgress: onReceiveProgress);
   }
 }

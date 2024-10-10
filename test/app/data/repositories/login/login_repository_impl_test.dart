@@ -72,9 +72,8 @@ void main() {
 
       expect(
         result,
-        equals(Left<Failure, LoginEntity>(Failure(
-            message:
-                'Erro ao tentar fazer o login: Missing email or username'))),
+        equals(Left<Failure, LoginEntity>(
+            Failure(message: 'Missing email or username'))),
       );
     });
 
@@ -98,8 +97,8 @@ void main() {
 
       expect(
         result,
-        equals(Left<Failure, LoginEntity>(Failure(
-            message: 'Erro ao tentar fazer o login: Missing password'))),
+        equals(
+            Left<Failure, LoginEntity>(Failure(message: 'Missing password'))),
       );
     });
     test(
@@ -122,8 +121,7 @@ void main() {
 
       expect(
         result,
-        equals(Left<Failure, LoginModel>(
-            Failure(message: 'Erro ao tentar fazer o login: user not found'))),
+        equals(Left<Failure, LoginModel>(Failure(message: 'user not found'))),
       );
     });
   });
