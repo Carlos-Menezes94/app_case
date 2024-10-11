@@ -57,22 +57,21 @@ void main() {
       expect(find.text('Por favor, digite um e-mail válido'), findsOneWidget);
       expect(find.text('A senha contém no mínimo 6 dígitos'), findsOneWidget);
     });
-  });
+    testWidgets(
+        'Should show information in the AppMessageCustomWidget when a login request fails, such as email not found',
+        (tester) async {
+      app.main();
+      await tester.pumpAndSettle();
 
-  testWidgets(
-      'Should show information in the AppMessageCustomWidget when a login request fails, such as email not found',
-      (tester) async {
-    app.main();
-    await tester.pumpAndSettle();
+      await tester.enterText(
+          find.byKey(const Key('text_email')), 'eve.holt@reqre2222s.in');
+      await tester.enterText(
+          find.byKey(const Key('text_password')), '12123ds4332');
 
-    await tester.enterText(
-        find.byKey(const Key('text_email')), 'eve.holt@reqre2222s.in');
-    await tester.enterText(
-        find.byKey(const Key('text_password')), '12123ds4332');
-
-    await tester.tap(find.byKey(const Key('button_enter_login')));
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 2));
-    expect(find.byKey(const Key('alert_dialog_info_error')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('button_enter_login')));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(seconds: 2));
+      expect(find.byKey(const Key('alert_dialog_info_error')), findsOneWidget);
+    });
   });
 }

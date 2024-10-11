@@ -1,4 +1,7 @@
 # App Case
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/93be37ed-b290-46c6-8a62-300701934f29" height="600">
+</p>
 
 O projeto foi criado utilizando as boas práticas de programação do Clean Architecture, adotando o Repository Design Pattern, seguindo alguns princípios do S.O.L.I.D para promover código modular, de fácil manutenção e escalável. A aplicação busca separar as responsabilidades e reduzir o acoplamento entre as camadas do sistema, garantindo que o código seja mais fácil de testar, manter e receber novas features.
 
@@ -25,7 +28,7 @@ O projeto foi criado utilizando as boas práticas de programação do Clean Arch
 
 - **loading_animation_widget**: Usado para criação de animação para estado de loading.
 
-- **flutter_secure_storage**: Para armazenar dados em armazenamento seguro, como o token do usuário. 
+- **flutter_secure_storage**: Para armazenar dados em armazenamento seguro, como o token do usuário para fazer autenticação de sessão.
 
 - **dio**: Usado para realizar requisições HTTP.
 
