@@ -1,6 +1,6 @@
 import 'package:app_random_numbers/app/core/mixins/screen_utility_mixin.dart';
+import 'package:app_random_numbers/app/core/widgets/app_bar_custom_widget.dart';
 import 'package:app_random_numbers/app/ui/home/controllers/home_controller.dart';
-import 'package:app_random_numbers/app/ui/login/pages/app_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
@@ -29,34 +29,12 @@ class _HomePageState extends State<HomePage> with ScreenUtilityMixin {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 80,
-          title: const Center(
-            child: Padding(
-              padding: EdgeInsets.only(left: 40),
-              child: Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
-          actions: [
-            IconButton(
-              key: const Key('button_appbar_logout'),
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                AppMessageCustom()
-                    .confirmation(context, 'Você deseja sair mesmo?', () {
-                  _controller.logout();
-                });
-              },
-            ),
-          ],
+        appBar: AppBarCustomWidget(
+          hasNotification: true,
+          countNotificationNew: 3,
+          onTap: () {
+            _controller.logout();
+          },
         ),
         body: ValueListenableBuilder(
           valueListenable: _controller.homeStore.storeState,
